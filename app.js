@@ -17,9 +17,9 @@ MongoClient.connect(url, function(err, db){
 	// 	db.close();
 	// });
 
-	FindDocuments(db, function(){
-	db.close();
-	});
+	   FindDocuments(db, function(){
+	   db.close();
+	   });
 
 	// QueryDocuments(db, function(){
 	// 	db.close();
@@ -28,6 +28,10 @@ MongoClient.connect(url, function(err, db){
 	// UpdateDocument(db, function(){
 	// 	db.close();
 	// });
+
+	// RemoveDocument(db, function(){
+	// 	db.close();
+	// 	});
 });
 // insert single doc
 const InsertDocument = function(db, callback){
@@ -117,4 +121,18 @@ const UpdateDocument = function(db, callback){
 			console.log('updated Document');
 			callback(result);
 		});
+}
+
+// Removing document
+const RemoveDocument = function(db, callback){
+	// Get collection
+	const collection = db.collection('users');
+	collection.deleteOne({name: 'Jon Dav'}, function(err, result){
+		if(err){
+			return console.dir(err);
+		}
+		console.log('Removed Document');
+		console.log(result);
+		callback(result);
+	});
 }
