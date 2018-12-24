@@ -17,13 +17,17 @@ MongoClient.connect(url, function(err, db){
 	// 	db.close();
 	// });
 
-	// FindDocuments(db, function(){
+	FindDocuments(db, function(){
+	db.close();
+	});
+
+	// QueryDocuments(db, function(){
 	// 	db.close();
 	// });
 
-	QueryDocuments(db, function(){
-		db.close();
-	});
+	// UpdateDocument(db, function(){
+	// 	db.close();
+	// });
 });
 // insert single doc
 const InsertDocument = function(db, callback){
@@ -98,4 +102,19 @@ const QueryDocuments = function(db, callback){
 		console.log(docs);
 		callback(docs);
 	});
+}
+
+// Updating documents
+const UpdateDocument = function(db, callback){
+	// Get collection
+	const collection = db.collection('users');
+	collection.updateOne({name: 'Jon Dav'},
+		{$set: {email:'JonNew@email.com'}},
+		function(err, result){
+			if(err){
+				return console.dir(err);
+			}
+			console.log('updated Document');
+			callback(result);
+		});
 }
